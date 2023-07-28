@@ -13,7 +13,7 @@ data = {
     'password': password
 }
 
-headers = {'Authorization': 'T oken 2d13234aff2ee37207fdaac04f3bde3d3c121fca'}
+headers = {'Authorization': 'Token 2d13234aff2ee37207fdaac04f3bde3d3c121fca'}
 
 # Make the POST request to the Django server
 response = requests.post(api_url, data=data,headers=headers)

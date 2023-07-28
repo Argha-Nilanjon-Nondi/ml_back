@@ -47,7 +47,11 @@ def login(request):
 @authentication_classes([CustomTokenAuthentication])
 #@permission_classes([CustomIsAuthenticated])
 def test(request):
+  """
+  headers = {'Authorization': 'Token 2d13234aff2ee37207fdaac04f3bde3d3c121fca'}
+  """
   user = request.user
+  print(user.id)
   if(user.is_authenticated==False):
     return set_msg(custom_code["token-invalid"])
   return Response("Hi-000")

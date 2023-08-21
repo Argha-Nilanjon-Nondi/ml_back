@@ -27,18 +27,23 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView,
     PasswordResetCompleteView
 )
-
+from django.conf import settings
+from django.conf.urls.static import static #add this
 from ml_api import urls as api_urls
+from django_api_admin.sites import site
 
 urlpatterns = [
     path('admin/', admin.site.urls,name="admin"),
     path('api-auth/', include('rest_framework.urls')),
-    path("api/",include(api_urls)),
-        path('logout/', LogoutView.as_view(next_page='admin'),name='logout'),
-    
+    path("api/",include(api_urls)),path('logout/', LogoutView.as_view(next_page='admin'),name='logout'),
     path('password-reset/', PasswordResetView.as_view(),name='password-reset'),
     path('password-reset/done/', PasswordResetDoneView.as_view(),name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
     path('password-reset-complete/',PasswordResetCompleteView.as_view(),name='password_reset_complete'),
-
+    path('api_admin/', site.urls),
 ]
+
+if settings.DEBUG: #add this
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

@@ -1,17 +1,22 @@
-from .models import User
+"""
+Admin interfaces for models
+"""
+
+from django.utils.html import mark_safe
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib import admin
-from ml_api.models import CustomToken
+from django.utils.translation import gettext as _, ngettext
+from django.core.exceptions import ValidationError
 from django.contrib import messages
 from django import forms
 from django.urls import path
 from django.urls import re_path
 from django.urls import resolve
 from django.utils.html import format_html
+from ml_back.models import User
+from ml_api.models import CustomToken
 from urllib.parse import quote as urlquote
-from django.utils.translation import gettext as _, ngettext
-from django.core.exceptions import ValidationError
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -27,6 +32,7 @@ class CustomUserChangeForm(UserChangeForm):
 class TokenInline(admin.StackedInline):
     model = CustomToken
     can_delete = False
+    exclude=("key",)
     
     def get_extra(self, request, obj=None, **kwargs):
         return 0
@@ -34,7 +40,7 @@ class TokenInline(admin.StackedInline):
     def get_readonly_fields(self, request, obj=None):
         # Specify the 'created_at' field as read-only when editing the inline model
         if obj:
-            return ['created',"machine"]
+            return ["machine",'created']
         return []
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -180,3 +186,59 @@ class CustomUserAdmin(UserAdmin):
             )
             self.message_user(request, msg, messages.SUCCESS)
             return self.response_post_save_change(request, obj)
+
+class TokenAdmin(admin.ModelAdmin):
+    list_display = ('user' ,'created')
+    fields = ('machine',)
+    search_fields = ('user__username',)
+    search_help_text = _('Username')
+    ordering = ('-created',)
+    actions = None  # Actions not compatible with mapped IDs.
+    autocomplete_fields = ("user",)
+    
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if not request.user.is_superuser:
+            qs = qs.filter(user=request.user)
+        return qs
+  
+            
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
+
+
+class MusicAdmin(admin.ModelAdmin):
+    list_display=('name','user',"created")
+    readonly_fields=("id_preview","audio_file_preview","denoised_audio_file_preview")
+    exclude=("user","denoised_audio_file")
+   
+    fieldsets = (
+        (None,{'fields': ("id_preview","name","audio_file",'audio_file_preview','denoised_audio_file_preview')}),
+    )
+    
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if not request.user.is_superuser:
+            qs = qs.filter(user=request.user)
+        return qs
+        
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
+
+    def id_preview(self,obj):
+        return obj.id_display
+    id_preview.short_description = mark_safe('<strong>ID</strong>')
+    id_preview.allow_tags = True
+  
+    def audio_file_preview(self, obj):
+        return obj.audio_file_display
+    audio_file_preview.short_description = format_html('Audio Preview')
+    audio_file_preview.allow_tags = True
+    
+    def denoised_audio_file_preview(self, obj):
+        return obj.denoised_audio_file_display
+    denoised_audio_file_preview.short_description = mark_safe('<strong>Denoised Audio Preview</strong>')
+    denoised_audio_file_preview.allow_tags = True
+    

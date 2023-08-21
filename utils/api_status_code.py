@@ -1,3 +1,13 @@
+"""
+Status code and message .
+------------------------------
+Format of a custom code :
+"operation-name":{
+  "code":integer (use 4 number digit),
+  "message": string (text to describe the code)
+}
+"""
+
 custom_code={
   
   "login-success":{
@@ -5,44 +15,54 @@ custom_code={
     "msg":"login is successfull"
   },
   
+  "user-create-success":{
+    "code":2001,
+    "msg":"user is created"
+  },
+  
   "username-invalid":{
     "code":3000,
-    "msg":"Username is not valid"
+    "msg":"username is not valid"
   },
 
   "username-empty":{
     "code":3001,
-    "msg":"Usename is required"
-    },
+    "msg":"username is required"
+  },
     
   "email-empty":{
     "code":3002,
-    "msg":"Email is required"
-    },
+    "msg":"email is required"
+  },
     
   "email-invalid":{
     "code":3003,
-    "msg":"Email is not valid"
+    "msg":"email is not valid"
   },
   
   "password-empty":{
     "code":3002,
-    "msg":"Password is required"
-    },
+    "msg":"password is required"
+  },
     
   "password-invalid":{
     "code":3003,
-    "msg":"Password is not valid"
+    "msg":"password is not valid"
   },    
   
   "email-password-invalid":{
     "code":3004,
-    "msg":"Email or password is incorrect"
+    "msg":"email or password is incorrect"
   },   
-    
+  
   "token-invalid":{
     "code":3005,
-    "msg":"Valid token is required"
-  }
+    "msg":"token is not valid"
+  },
+  
+  "email-already-exit":{
+    "code":3006,
+    "msg":"email is already exist"
+  },
   
 }

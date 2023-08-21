@@ -18,7 +18,14 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password, **extra_fields)
+ 
+    def set_unusable_password(self):
+        """
+        Return False if set_unusable_password() has been called for this user.
+        """
+        return False
 
+ 
 
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -27,7 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'email' # email will be used as primary identifier like username
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()

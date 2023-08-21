@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "rest_framework",
-  
     "ml_back",
-    "ml_api"
+    "ml_api",
+    'django_api_admin',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'ml_back.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,16 +133,9 @@ AUTH_USER_MODEL = 'ml_back.User'
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
 ]
-
-REST_FRAMEWORK = {
-    #"DEFAULT_AUTHENTICATION_CLASSES":[
-     #    "ml_api.authentication.CustomTokenAuthentication"
-      #]
-    #  ,
-    #'DEFAULT_PERMISSION_CLASSES': [
-    #   'ml_api.authentication.CustomIsAuthenticated',
-    #]
     
+REST_FRAMEWORK = {
+   'EXCEPTION_HANDLER':"utils.custom_exception_handler"
 }
 
 EMAIL_HOST = 'smtp.gmail.com'
@@ -150,4 +145,14 @@ EMAIL_HOST_USER =""
 EMAIL_HOST_PASSWORD =""
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
+TOKEN_LIFESPAN = datetime.timedelta(days=25) # lifespan for a user api key
+
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+
+DENOISE_URL="https://tiny-papers-relate.loca.lt/api/upload" # web api url to denoisify a audio file
+
+PUBLIC_KEY_PATH=os.path.join(BASE_DIR, 'keys/public_key.pem') # public key that is used to dcrypt audio file

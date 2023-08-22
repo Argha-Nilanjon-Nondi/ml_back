@@ -40,6 +40,7 @@
 | ---------------------- | ------------ | ----------- |
 | super@django.com     | django1234 | Super     |
 | normal@django.com    | django1234 | Regular   |
+
 ![Screenshot 6](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/06.jpg?raw=true)
 <br>
 

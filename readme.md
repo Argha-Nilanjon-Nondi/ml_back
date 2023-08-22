@@ -10,30 +10,37 @@
 - Super User Support
 - Normal User Support
 - User can only access own record
+- Encrypt with ECC before sending for processing
 
 ## Screenshots
 
 - Run https://github.com/Argha-Nilanjon-Nondi/server in google colab and copy url from <span style="background-color: #f0f0f0"> your url is https://tiny-papers-relate.loca.lt/ </span>
  ![Screenshot 1](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/01.jpg?raw=true)
 <br>
+<br>
 
 - Set main url as <span style="background-color: #f0f0f0"> https://tiny-papers-relate.loca.lt/ </span> in DENOISE_URL variable
  ![Screenshot 2](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/02.jpg?raw=true)
+<br>
 <br>
 
 
 - Run django server
  ![Screenshot 3](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/03.jpg?raw=true)
 <br>
+<br>
 
 
 - Run redis server ( As a message broker )
 ![Screenshot 4](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/04.jpg?raw=true)
 <br>
+<br>
 
 
 - Run celery with watchfiles
 ![Screenshot 5](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/05.jpg?raw=true)
+<br>
+<br>
 
 - Login to admin . You can use
 
@@ -44,21 +51,26 @@
 
 ![Screenshot 6](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/06.jpg?raw=true)
 <br>
+<br>
 
 - Music table
  ![Screenshot 7](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/07.jpg?raw=true)
+<br>
 <br>
 
 - Submit a noisy audio
  ![Screenshot 8](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/08.jpg?raw=true)
 <br>
+<br>
 
 - denoise process is completed and user is notified by email ( See yellow colored text )
  ![Screenshot 9](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/09.jpg?raw=true)
 <br>
+<br>
 
 - Go to url and you can see a the  denoised version of that audio
 ![Screenshot 10](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/10.jpg?raw=true)
+<br>
 <br>
 
 ## Demo

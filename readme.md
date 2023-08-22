@@ -36,6 +36,7 @@
 ![Screenshot 5](https://github.com/Argha-Nilanjon-Nondi/ml_back/blob/master/screenshot/05.jpg?raw=true)
 
 - Login to admin . You can use
+
 | Email                | Password   | User Type |
 | ---------------------- | ------------ | ----------- |
 | super@django.com     | django1234 | Super     |
